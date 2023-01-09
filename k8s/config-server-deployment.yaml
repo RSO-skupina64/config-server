@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: config-server-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: config-server
+  template:
+    metadata:
+      labels:
+        app: config-server
+    spec:
+      containers:
+        - image: as9721/config-server:2022-12-29-22-39-08
+          name: config-server
+          ports:
+            - containerPort: 8888
+              name: server
+              protocol: TCP
+          env:
+            - name: spring.cloud.config.server.git.uri
+              value: https://github.com/RSO-skupina64/config-repo
+            - name: spring.cloud.config.server.git.username
+              value: asmaljcelj
+            - name: spring.cloud.config.server.git.password
+              value: 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
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: config-server
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 8888
+      protocol: TCP
+      targetPort: server
+  selector:
+    app: config-server
