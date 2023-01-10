@@ -13,7 +13,7 @@ spec:
         app: config-server
     spec:
       containers:
-        - image: as9721/config-server:2022-12-29-22-39-08
+        - image: as9721/config-server:2023-01-09-20-07-34
           name: config-server
           ports:
             - containerPort: 8888
